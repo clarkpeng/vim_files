@@ -31,3 +31,7 @@ set nu
 " tab setting
 set expandtab
 set softtabstop=2
+set tabstop=2
+
+" no end of line
+set noeol
