@@ -16,8 +16,8 @@ Plugin 'gmarik/Vundle.vim'
 " Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'vim-scripts/indentpython.vim'
-Plugin 'scrooloose/syntastic'
-Plugin 'nvie/vim-flake8'
+"Plugin 'scrooloose/syntastic'
+"Plugin 'nvie/vim-flake8'
 Plugin 'jnurmine/Zenburn'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'scrooloose/nerdtree'
@@ -35,6 +35,8 @@ syntax on
 
 set bg=dark
 set hlsearch
+set incsearch
+set ignorecase
 
 " Enable folding
 set foldmethod=indent
@@ -52,7 +54,7 @@ au BufNewFile,BufRead *.py
     \ set tabstop=2 |
     \ set softtabstop=2 |
     \ set shiftwidth=2 |
-    \ set textwidth=79 |
+"    \ set textwidth=79 |
     \ set expandtab |
     \ set autoindent |
     \ set fileformat=unix
