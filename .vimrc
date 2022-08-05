@@ -24,6 +24,8 @@ Plugin 'jlanzarotta/bufexplorer'
 Plugin 'vim-scripts/MultipleSearch'
 Plugin 'grep.vim'
 Plugin 'linediff.vim'
+Plugin 'fugitive.vim'
+Plugin 'jremmen/vim-ripgrep'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -50,9 +52,9 @@ highlight BadWhitespace ctermbg=red guibg=darkred
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 
 au BufNewFile,BufRead *.py
-    \ set tabstop=2 |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2 |
+    \ set tabstop=4 |
+    \ set softtabstop=4 |
+    \ set shiftwidth=4 |
 "    \ set textwidth=79 |
     \ set expandtab |
     \ set autoindent |
@@ -60,4 +62,7 @@ au BufNewFile,BufRead *.py
 
 let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 
-set clipboard=unnamed
+"set clipboard=unnamed
+set clipboard=
+
+set guifont=Menlo\ Regular:h18
