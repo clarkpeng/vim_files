@@ -1,35 +1,43 @@
 set nocompatible              " required
 filetype off                  " required
 
+call plug#begin()
+" The default plugin directory will be as follows:
+"   - Vim (Linux/macOS): '~/.vim/plugged'
+"   - Vim (Windows): '~/vimfiles/plugged'
+"   - Neovim (Linux/macOS/Windows): stdpath('data') . '/plugged'
+" You can specify a custom plugin directory by passing it as the argument
+"   - e.g. `call plug#begin('~/.vim/plugged')`
+"   - Avoid using standard Vim directory names like 'plugin'
+
+" On-demand loading
+Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+
+" Plugin outside ~/.vim/plugged with post-update hook
+Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+
+"Plug 'jremmen/vim-ripgrep'
+Plug 'vim-scripts/indentpython.vim'
+Plug 'jlanzarotta/bufexplorer'
+Plug 'vim-scripts/multiplesearch'
+Plug 'https://gitlab.com/lstwn/broot.vim'
+Plug 'tpope/vim-fugitive'
+
+" Initialize plugin system
+" - Automatically executes `filetype plugin indent on` and `syntax enable`.
+call plug#end()
+" You can revert the settings after the call like so:
+"   filetype indent off   " Disable file-type-specific indentation
+"   syntax off            " Disable syntax highlighting
+
 set encoding=utf-8
 
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" alternatively, pass a path where Vundle should install plugins
-"call vundle#begin('~/some/path/here')
-
-" let Vundle manage Vundle, required
-Plugin 'gmarik/Vundle.vim'
-
-" Add all your plugins here (note older versions of Vundle used Bundle instead of Plugin)
-Plugin 'tmhedberg/SimpylFold'
-Plugin 'vim-scripts/indentpython.vim'
-Plugin 'jnurmine/Zenburn'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'scrooloose/nerdtree'
-Plugin 'kien/ctrlp.vim'
-Plugin 'jlanzarotta/bufexplorer'
-Plugin 'vim-scripts/MultipleSearch'
-Plugin 'grep.vim'
-Plugin 'linediff.vim'
-Plugin 'fugitive.vim'
-Plugin 'jremmen/vim-ripgrep'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
 let python_highlight_all=1
 syntax on
@@ -47,6 +55,7 @@ set foldlevel=99
 nnoremap <space> za
 " NERDTreeToggle
 nnoremap <leader>n :NERDTreeToggle<cr>
+nnoremap <leader>f :Files<CR>
 
 highlight BadWhitespace ctermbg=red guibg=darkred
 au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
@@ -66,3 +75,16 @@ let NERDTreeIgnore=['\.pyc$', '\~$'] "ignore files in NERDTree
 set clipboard=
 
 set guifont=Menlo\ Regular:h18
+
+" Default fzf layout
+" - Popup window (center of the screen)
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9 } }
+
+let $FZF_DEFAULT_OPTS="--preview-window 'right:57%' --preview 'bat --style=numbers --line-range :300 {}'
+\ --bind ctrl-y:preview-up,ctrl-e:preview-down,
+\ctrl-b:preview-page-up,ctrl-f:preview-page-down,
+\ctrl-u:preview-half-page-up,ctrl-d:preview-half-page-down,
+\shift-up:preview-top,shift-down:preview-bottom,
+\alt-up:half-page-up,alt-down:half-page-down"
+
+
