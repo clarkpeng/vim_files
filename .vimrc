@@ -1,5 +1,6 @@
 set nocompatible              " required
 filetype off                  " required
+set mouse=a
 
 call plug#begin()
 " The default plugin directory will be as follows:
@@ -17,12 +18,13 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
-"Plug 'jremmen/vim-ripgrep'
+Plug 'jremmen/vim-ripgrep'
 Plug 'vim-scripts/indentpython.vim'
 Plug 'jlanzarotta/bufexplorer'
 Plug 'vim-scripts/multiplesearch'
 Plug 'https://gitlab.com/lstwn/broot.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'zivyangll/git-blame.vim'
 
 " Initialize plugin system
 " - Automatically executes `filetype plugin indent on` and `syntax enable`.
@@ -57,14 +59,16 @@ nnoremap <space> za
 nnoremap <leader>n :NERDTreeToggle<cr>
 nnoremap <leader>f :Files<CR>
 
-highlight BadWhitespace ctermbg=red guibg=darkred
-au BufRead,BufNewFile *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+" git blame
+nnoremap <Leader>s :<C-u>call gitblame#echo()<CR>
 
-au BufNewFile,BufRead *.py
+highlight BadWhitespace ctermbg=red guibg=darkred
+au BufRead,BufNewFile *.py,*.pyw,*.c,*.h,*.java match BadWhitespace /\s\+$/
+
+au BufNewFile,BufRead *.py,*.java
     \ set tabstop=4 |
     \ set softtabstop=4 |
     \ set shiftwidth=4 |
-"    \ set textwidth=79 |
     \ set expandtab |
     \ set autoindent |
     \ set fileformat=unix
